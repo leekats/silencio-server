@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: silencio
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - image: 'silencio:latest'
+          imagePullPolicy: Always
+          name: backend
+          ports:
+            - containerPort: 8080
+          env:
+          - name: SPRING_DATA_MONGODB_URI
+            value: mongodb://localhost:27017
+          - name: SPRING_DATA_MONGODB_DATABASE
+            value: silencio
